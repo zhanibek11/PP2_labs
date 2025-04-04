@@ -29,9 +29,8 @@ def draw_hand(surface, image, angle):
     a = 0.75
     photo1 = (int(image.get_width() * a), int(image.get_height() * a))
     photo2 = pygame.transform.scale(image,photo1)
-
-    photo =pygame.transform.rotate(photo2, -angle)
-    rect =photo.get_rect(center=CENTER)
+    photo = pygame.transform.rotate(photo2, -angle)
+    rect = photo.get_rect(center=CENTER)
     surface.blit(photo, rect)
 
 def run():
@@ -44,28 +43,40 @@ def run():
     background = pygame.image.load("/Users/kuanyshev11/Documents/zhanibek/labs/lab7/mickeymouse/clock(4).png")  
     background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))  
 
-    minute_hand_img = pygame.image.load("/Users/kuanyshev11/Documents/zhanibek/labs/lab7/mickeymouse/larm.png")
-    second_hand_img = pygame.image.load("/Users/kuanyshev11/Documents/zhanibek/labs/lab7/mickeymouse/rarm"
-    ".png")
+    minute_hand_img = pygame.image.load("/Users/kuanyshev11/Documents/zhanibek/labs/lab7/mickeymouse/rarm.png")
+    second_hand_img = pygame.image.load("/Users/kuanyshev11/Documents/zhanibek/labs/lab7/mickeymouse/larm.png")
 
     pygame.mixer.init()
     pygame.mixer.music.load('/Users/kuanyshev11/Documents/zhanibek/labs/lab7/mickeymouse/bober.mp3')   
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)  
 
+    chime_sound = pygame.mixer.Sound("/Users/kuanyshev11/Documents/zhanibek/labs/lab7/mickeymouse/chime.mp3")
+    chime_channel = pygame.mixer.Channel(1)
+
     running = True
-    music_paused = False
-   
+    previous_second = -1
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+        
         screen.blit(background, (0, 0))
         now = datetime.now()
+        
+        if now.second == 0 and previous_second != 0:
+            chime_channel.play(chime_sound)
+        
+        previous_second = now.second
 
         draw_hand(screen, minute_hand_img, now.minute * 6)
         draw_hand(screen, second_hand_img, now.second * 6)
 
         pygame.display.flip()
+        clock.tick(60)
+    
+    pygame.quit()
+    sys.exit()
 
 run()
