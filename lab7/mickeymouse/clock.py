@@ -17,7 +17,7 @@ class Button:
         self.font = pygame.font.Font(None, font_size)
         self.color = (200, 200, 200)
     
-    def draw(self, screen):
+    def draw(self, screen): 
         pygame.draw.rect(screen, self.color, self.rect)
         text_surface = self.font.render(self.text, True, (0, 0, 0))
         screen.blit(text_surface, (self.rect.x + 10, self.rect.y + 10))
@@ -44,9 +44,8 @@ def run():
     background = pygame.image.load("/Users/kuanyshev11/Documents/zhanibek/labs/lab7/mickeymouse/clock(4).png")  
     background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))  
 
-    minute_hand_img = pygame.image.load("/Users/kuanyshev11/Documents/zhanibek/labs/lab7/mickeymouse/larm.png")
-    second_hand_img = pygame.image.load("/Users/kuanyshev11/Documents/zhanibek/labs/lab7/mickeymouse/rarm"
-    ".png")
+    minute_hand_img = pygame.image.load("/Users/kuanyshev11/Documents/zhanibek/labs/lab7/mickeymouse/rarm.png")
+    second_hand_img = pygame.image.load("/Users/kuanyshev11/Documents/zhanibek/labs/lab7/mickeymouse/larm.png")
 
     pygame.mixer.init()
     pygame.mixer.music.load('/Users/kuanyshev11/Documents/zhanibek/labs/lab7/mickeymouse/bober.mp3')   

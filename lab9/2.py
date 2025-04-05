@@ -87,6 +87,10 @@ while running:
     # проверка на выход за границы
     if snake_pos[0] < 0 or snake_pos[0] >= width or snake_pos[1] < 0 or snake_pos[1] >= height:
         running = False
+    # if snake_pos[0] < 0:
+       snake_pos[0] = width - cell_size
+    if snake_pos[0] >= width:
+        snake_pos[0] = 0
     
     # проверка на столкновение с собой
     if snake_pos in snake_body[1:]:
